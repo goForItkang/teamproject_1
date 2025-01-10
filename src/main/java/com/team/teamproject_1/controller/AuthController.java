@@ -31,6 +31,7 @@ public class AuthController {
     // login
     // logout
 
+    //
     // login 검증 및 JWT 토큰 발급
     @PostMapping("/login")
     public ResponseEntity<String> loginRequest(@RequestBody UserDto userDto, HttpServletResponse response) {
