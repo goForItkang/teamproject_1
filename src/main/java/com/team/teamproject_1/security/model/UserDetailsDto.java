@@ -1,8 +1,8 @@
 package com.team.teamproject_1.security.model;
 
+import com.team.teamproject_1.entity.user.dto.UserDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import sports_shop.project1.domain.user.dto.UserDto;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,11 +10,12 @@ import java.util.List;
 
 public class UserDetailsDto implements ProviderUser{
 
-    UserDto userDto;
+    private final UserDto userDto;
 
     public UserDetailsDto(UserDto userDto) {
         this.userDto = userDto;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -30,8 +31,12 @@ public class UserDetailsDto implements ProviderUser{
         return userDto.getPassword();
     }
 
+    // *******1.10 수정 사항 ***********
+    //getEmail()로 보일 수 있게 수정 바람
     @Override
     public String getUsername() {
         return userDto.getUsername();
     }
+
+
 }

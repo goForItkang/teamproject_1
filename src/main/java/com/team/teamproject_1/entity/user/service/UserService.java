@@ -2,7 +2,7 @@ package com.team.teamproject_1.entity.user.service;
 
 import com.team.teamproject_1.entity.user.dto.UserDto;
 import com.team.teamproject_1.entity.user.entity.Role;
-import com.team.teamproject_1.entity.user.entity.User;
+import com.team.teamproject_1.entity.user.entity.Users;
 import com.team.teamproject_1.entity.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserService {
 
+
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -24,71 +25,54 @@ public class UserService {
     }
 
     public boolean save(UserDto userDto){
-        if(this.findByUser(userDto.getLoginId()) != null){
+        if(this.findByUser(userDto.getEmail()) != null){
             log.info("User already exists");
             return false;
         }
 
+        log.info("userDto : {}", userDto);
         userDto.setRole(Role.USER);
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        User user = userDtoToUser(userDto);
+        Users users = userDtoToUser(userDto);
 
-        userRepository.save(user);
-        log.info("Save User : {}", user);
+        userRepository.save(users);
+        log.info("Save User : {}", users);
         return true;
     }
 
-    public UserDto findByUser(String loginId){
-        User user = userRepository.findByLoginId(loginId);
-        if(user == null){
+    public UserDto findByUser(String email){
+        Users users = userRepository.findByEmail(email);
+        if(users == null){
             log.info("user is null");
             return null;
         }
 
-        return userToUserDto(user);
+        return usersToUserDto(users);
     }
 
-    private UserDto userToUserDto(User user){
-        return new UserDto(
-                user.getId(),
-                user.getLoginId(),
-                user.getPassword(),
-                user.getEmail(),
-                user.getUsername(),
-                user.getPhoneNumber(),
-                user.getRole()
-        );
-    }
-
-    private User userDtoToUser(UserDto userDto){
-        return new User(
-                userDto.getLoginId(),
-                userDto.getPassword(),
-                userDto.getEmail(),
-                userDto.getUsername(),
-                userDto.getPhoneNumber(),
-                userDto.getRole()
-        );
+    private UserDto usersToUserDto(Users users){
+        return UserDto.builder()
+                .id(users.getId())
+                .email(users.getEmail())
+                .password(users.getPassword())
+                .username(users.getUsername())
+                .phoneNumber(users.getPhoneNumber())
+                .role(users.getRole())
+                .birthday(users.getBirthday())
+                .build();
     }
 
 
-//    public UserDto findByLoginId(String loginId){
-//        User user = userRepository.findByLoginId(loginId);
-//        if(user == null){
-//            return null;
-//        }
-//
-//        return modelMapper.map(user, UserDto.class);
-//    }
-//
-//    public UserDto findByPassword(String password){
-//        User user = userRepository.findByPassword(password);
-//        if(user == null){
-//            return null;
-//        }
-//
-//        return modelMapper.map(user, UserDto.class);
-//    }
+    private Users userDtoToUser(UserDto userDto){
+        return Users.builder()
+                .email(userDto.getEmail())
+                .password(userDto.getPassword())
+                .username(userDto.getUsername())
+                .phoneNumber(userDto.getPhoneNumber())
+                .role(userDto.getRole())
+                .birthday(userDto.getBirthday())
+                .build();
+    }
 
 
 }
