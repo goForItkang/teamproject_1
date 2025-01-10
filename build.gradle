@@ -30,10 +30,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-    runtimeOnly 'com.h2database:h2:2.2.224'
-//    runtimeOnly 'com.mysql:mysql-connector-j'
-
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
@@ -41,12 +37,6 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-
-
-//    수정 사항(1월 8일) - jsonwebtoken 11.5 -> 12.6
-//    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-//    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-//    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
