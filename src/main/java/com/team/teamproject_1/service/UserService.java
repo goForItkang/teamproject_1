@@ -1,6 +1,6 @@
 package com.team.teamproject_1.entity.user.service;
 
-import com.team.teamproject_1.entity.user.dto.UserDto;
+import com.team.teamproject_1.dto.UserDto;
 import com.team.teamproject_1.entity.user.entity.Role;
 import com.team.teamproject_1.entity.user.entity.Users;
 import com.team.teamproject_1.entity.user.repository.UserRepository;

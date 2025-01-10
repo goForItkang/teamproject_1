@@ -1,6 +1,6 @@
 package com.team.teamproject_1.security.service;
 
-import com.team.teamproject_1.entity.user.dto.UserDto;
+import com.team.teamproject_1.dto.UserDto;
 import com.team.teamproject_1.entity.user.entity.Users;
 import com.team.teamproject_1.entity.user.repository.UserRepository;
 import com.team.teamproject_1.security.model.Principal;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
