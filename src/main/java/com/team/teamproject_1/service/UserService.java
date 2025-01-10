@@ -1,9 +1,10 @@
-package com.team.teamproject_1.entity.user.service;
+package com.team.teamproject_1.service;
 
 import com.team.teamproject_1.dto.UserDto;
-import com.team.teamproject_1.entity.user.entity.Role;
-import com.team.teamproject_1.entity.user.entity.Users;
-import com.team.teamproject_1.entity.user.repository.UserRepository;
+
+import com.team.teamproject_1.entity.Role;
+import com.team.teamproject_1.entity.Users;
+import com.team.teamproject_1.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

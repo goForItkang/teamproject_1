@@ -1,4 +1,4 @@
-package com.team.teamproject_1.security.model;
+package com.team.teamproject_1.entity;
 
 import com.team.teamproject_1.dto.UserDto;
 import org.springframework.security.core.GrantedAuthority;

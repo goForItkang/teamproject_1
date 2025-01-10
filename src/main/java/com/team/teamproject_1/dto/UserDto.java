@@ -1,6 +1,8 @@
-package com.team.teamproject_1.entity.user.dto;
+package com.team.teamproject_1.dto;
 
-import com.team.teamproject_1.entity.user.entity.Role;
+
+
+import com.team.teamproject_1.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

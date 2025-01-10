@@ -1,12 +1,14 @@
 package com.team.teamproject_1.jwt;
 
 
-import com.team.teamproject_1.entity.user.entity.Role;
+import com.team.teamproject_1.entity.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.Cookie;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 @Slf4j
 @Component
 public class JwtTokenProvider {
@@ -36,6 +39,8 @@ public class JwtTokenProvider {
     private final String KEY_ROLE = "role";
     private final String HEADER_TYPE = "typ";
     private final String HEADER_JWT_TYPE = "JWT";
+    private final String ALGORITHM = "HmacSHA256";
+    private final String JWT_COOKIE_NAME = "JwtCookie";
 
     @PostConstruct
     private void setSecretKey() {
@@ -47,6 +52,21 @@ public class JwtTokenProvider {
         SECRET_KEY = Keys.hmacShaKeyFor(KEY.getBytes());
     }
 
+    public Cookie createJwtCookie(String username, Role role){
+        String jwtToken = createToken(username, role);
+        Cookie cookie = new Cookie(JWT_COOKIE_NAME, jwtToken);
+        cookie.setHttpOnly(false);  // 클라이언트에서 JavaScript로 접근 불가
+//        cookie.setSecure(true);    // HTTPS에서만 전송
+        cookie.setPath("/");       // 모든 경로에서 쿠키에 접근 가능
+        cookie.setMaxAge((int)ACCESS_EXPIRE_TIME);
+
+        return cookie;
+    }
+
+    // *****(1.11)*******
+    // username -> email
+    // username = 구분 id
+    // 따라서, email  사용 필요
     public String createToken(String username, Role role) {
         Date beginDate = new Date();
         Date endDate = new Date(beginDate.getTime() + ACCESS_EXPIRE_TIME);
@@ -55,11 +75,11 @@ public class JwtTokenProvider {
                 .header()
                 .add(HEADER_TYPE, HEADER_JWT_TYPE)
                 .and()
-                .claim("username", username)
-                .claim("role", role)
+                .subject(username)
+                .claim(KEY_ROLE, "ROLE_"+role)
                 .issuedAt(beginDate)
                 .expiration(endDate)
-                .signWith(new SecretKeySpec(SECRET_KEY.getEncoded(), "HmacSHA256"))
+                .signWith(new SecretKeySpec(SECRET_KEY.getEncoded(), ALGORITHM))
                 .compact();
     }
 
@@ -82,7 +102,7 @@ public class JwtTokenProvider {
                 .claim(KEY_ROLE, authorities)
                 .issuedAt(beginDate)
                 .expiration(endDate)
-                .signWith(new SecretKeySpec(SECRET_KEY.getEncoded(), "HmacSHA256"))
+                .signWith(new SecretKeySpec(SECRET_KEY.getEncoded(), ALGORITHM))
                 .compact();
     }
 

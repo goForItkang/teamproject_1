@@ -1,7 +1,7 @@
-package com.team.teamproject_1.entity.user.controller;
+package com.team.teamproject_1.controller;
 
-import com.team.teamproject_1.entity.user.dto.UserDto;
-import com.team.teamproject_1.entity.user.service.UserService;
+import com.team.teamproject_1.dto.UserDto;
+import com.team.teamproject_1.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
