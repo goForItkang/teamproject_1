@@ -20,6 +20,6 @@ public class TestController {
 
     @GetMapping("/security/admin")
     public ResponseEntity<String> admin(){
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok("ok1");
     }
 }
